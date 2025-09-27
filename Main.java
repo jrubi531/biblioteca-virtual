@@ -11,12 +11,12 @@ public class Main {
             ArchivoUsuarios archivoUsuarios = new ArchivoUsuarios("usuarios.ser");
             ControlSesion control = new ControlSesion(archivoUsuarios);
 
-            JFrame frame = new JFrame(); // solo para padre del dialog
+            JFrame frame = new JFrame(); 
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(false); // no mostrar
+            frame.setVisible(false); 
 
             LoginDialog login = new LoginDialog(frame, control);
-            login.setVisible(true); // se abre el login
+            login.setVisible(true); 
         });
     }
 }

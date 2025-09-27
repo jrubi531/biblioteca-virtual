@@ -6,6 +6,7 @@ import java.awt.*;
 public class PanelBusqueda extends JPanel {
     private JTextField txtBusqueda;
     private JButton btnBuscar;
+    private JButton btnVerTodos; // 🔹 nuevo botón
 
     public PanelBusqueda() {
         setOpaque(false);
@@ -29,8 +30,20 @@ public class PanelBusqueda extends JPanel {
         btnBuscar.setFocusPainted(false);
         btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+        btnVerTodos = new JButton("📚 Ver todos");
+        btnVerTodos.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnVerTodos.setBackground(new Color(100, 149, 237));
+        btnVerTodos.setForeground(Color.WHITE);
+        btnVerTodos.setFocusPainted(false);
+        btnVerTodos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        panelBotones.setOpaque(false);
+        panelBotones.add(btnBuscar);
+        panelBotones.add(btnVerTodos);
+
         add(txtBusqueda, BorderLayout.CENTER);
-        add(btnBuscar, BorderLayout.EAST);
+        add(panelBotones, BorderLayout.EAST);
     }
 
     public JTextField getTxtBusqueda() {
@@ -39,5 +52,9 @@ public class PanelBusqueda extends JPanel {
 
     public JButton getBtnBuscar() {
         return btnBuscar;
+    }
+
+    public JButton getBtnVerTodos() {
+        return btnVerTodos;
     }
 }

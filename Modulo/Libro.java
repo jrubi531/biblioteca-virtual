@@ -1,16 +1,14 @@
 package Modulo;
 
-import java.io.Serializable;
-
-public class Libro implements Serializable {
+public class Libro {
     private String titulo;
     private String autor;
-    private String isbn;
+    private String archivoPDF; // nuevo atributo
 
-    public Libro(String titulo, String autor, String isbn) {
+    public Libro(String titulo, String autor, String archivoPDF) {
         this.titulo = titulo;
         this.autor = autor;
-        this.isbn = isbn;
+        this.archivoPDF = archivoPDF;
     }
 
     public String getTitulo() {
@@ -21,12 +19,12 @@ public class Libro implements Serializable {
         return autor;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public String getArchivoPDF() {
+        return archivoPDF;
     }
 
     @Override
     public String toString() {
-        return titulo + " - " + autor + " (" + isbn + ")";
+        return titulo + " - " + autor;
     }
 }

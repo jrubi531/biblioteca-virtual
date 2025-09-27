@@ -9,8 +9,8 @@ public class Usuario implements Serializable {
 
     private String username;
     private String contraseña;
-    private List<Libro> favoritos;   // libros favoritos
-    private List<Libro> historial;   // historial de libros
+    private List<Libro> favoritos; 
+    private List<Libro> historial;   
 
     public Usuario(String username, String contraseña) {
         this.username = username;
@@ -37,6 +37,6 @@ public class Usuario implements Serializable {
     // Historial
     public List<Libro> getHistorial() { return historial; }
     public void agregarHistorial(Libro libro) {
-        historial.add(libro); // puedes agregar lógica para no duplicar si quieres
+        historial.add(libro); 
     }
 }

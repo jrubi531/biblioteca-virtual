@@ -9,7 +9,7 @@ public class LoginDialog extends JDialog {
 
     private JTextField txtUsuario;
     private JPasswordField txtPassword;
-    private JButton btnLogin;
+    private JButton btnLogin, btnRegistrar;
     private ControlSesion control;
 
     public LoginDialog(JFrame parent, ControlSesion control) {
@@ -20,7 +20,9 @@ public class LoginDialog extends JDialog {
         setLocationRelativeTo(parent);
         setLayout(new BorderLayout());
 
-        JPanel campos = new JPanel(new GridLayout(2,2));
+        // Campos de usuario y contraseña
+        JPanel campos = new JPanel(new GridLayout(2,2,5,5));
+        campos.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         campos.add(new JLabel("Usuario:"));
         txtUsuario = new JTextField();
         campos.add(txtUsuario);
@@ -29,9 +31,16 @@ public class LoginDialog extends JDialog {
         campos.add(txtPassword);
         add(campos, BorderLayout.CENTER);
 
+        // Botones de login y registro
         btnLogin = new JButton("Iniciar Sesión");
-        add(btnLogin, BorderLayout.SOUTH);
+        btnRegistrar = new JButton("Registrar Usuario");
 
+        JPanel panelBotones = new JPanel();
+        panelBotones.add(btnLogin);
+        panelBotones.add(btnRegistrar);
+        add(panelBotones, BorderLayout.SOUTH);
+
+        // Acción de login
         btnLogin.addActionListener(e -> {
             String usuario = txtUsuario.getText();
             String password = new String(txtPassword.getPassword());
@@ -42,6 +51,25 @@ public class LoginDialog extends JDialog {
                 SwingUtilities.invokeLater(() -> new VistaBiblioteca());
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        // Acción de registro
+        btnRegistrar.addActionListener(e -> {
+            String usuario = txtUsuario.getText();
+            String password = new String(txtPassword.getPassword());
+
+            if(usuario.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debes ingresar usuario y contraseña", "Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if(control.registrarUsuario(usuario, password)) {
+                JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                txtUsuario.setText("");
+                txtPassword.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "El usuario ya existe", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
     }
