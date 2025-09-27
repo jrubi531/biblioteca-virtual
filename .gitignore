@@ -1,0 +1,21 @@
+# Archivos compilados de Java
+*.class
+bin/
+out/
+
+# Archivos de sesión/usuarios
+usuarios.ser
+
+# Ignorar PDFs
+pdfs/
+
+# Ignorar imágenes
+Assets/
+
+# Archivos temporales de IDEs
+*.log
+*.tmp
+*.swp
+.vscode/
+.idea/
+*.iml
