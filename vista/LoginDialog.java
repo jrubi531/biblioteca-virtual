@@ -1,24 +1,26 @@
 package vista;
 
 import control.ControlSesion;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class LoginDialog extends JDialog {
+
     private JTextField txtUsuario;
     private JPasswordField txtPassword;
     private JButton btnLogin;
-    private JButton btnRegistro;
+    private ControlSesion control;
 
     public LoginDialog(JFrame parent, ControlSesion control) {
         super(parent, "Iniciar Sesión", true);
+        this.control = control;
+
         setSize(350, 180);
         setLocationRelativeTo(parent);
         setLayout(new BorderLayout());
 
-        // Panel de campos
-        JPanel campos = new JPanel(new GridLayout(2,2,5,5));
-        campos.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        JPanel campos = new JPanel(new GridLayout(2,2));
         campos.add(new JLabel("Usuario:"));
         txtUsuario = new JTextField();
         campos.add(txtUsuario);
@@ -27,42 +29,19 @@ public class LoginDialog extends JDialog {
         campos.add(txtPassword);
         add(campos, BorderLayout.CENTER);
 
-        // Panel de botones
-        JPanel botones = new JPanel();
-        btnLogin = new JButton("Entrar");
-        btnRegistro = new JButton("Registrar");
-        botones.add(btnLogin);
-        botones.add(btnRegistro);
-        add(botones, BorderLayout.SOUTH);
+        btnLogin = new JButton("Iniciar Sesión");
+        add(btnLogin, BorderLayout.SOUTH);
 
-        // Acción botón Entrar
         btnLogin.addActionListener(e -> {
-            String usuario = txtUsuario.getText().trim();
-            String pass = new String(txtPassword.getPassword());
-            if (usuario.isEmpty() || pass.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Completa los campos");
-                return;
-            }
-            if (control.verificarUsuario(usuario, pass)) {
-                JOptionPane.showMessageDialog(this, "Bienvenido " + usuario);
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
-            }
-        });
+            String usuario = txtUsuario.getText();
+            String password = new String(txtPassword.getPassword());
 
-        // Acción botón Registrar
-        btnRegistro.addActionListener(e -> {
-            String usuario = txtUsuario.getText().trim();
-            String pass = new String(txtPassword.getPassword());
-            if (usuario.isEmpty() || pass.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Completa los campos para registrar");
-                return;
-            }
-            if (control.registrarUsuario(usuario, pass)) {
-                JOptionPane.showMessageDialog(this, "Usuario registrado correctamente");
+            if(control.verificarUsuario(usuario, password)) {
+                dispose(); // cerrar login
+                // Abrir la VistaBiblioteca
+                SwingUtilities.invokeLater(() -> new VistaBiblioteca());
             } else {
-                JOptionPane.showMessageDialog(this, "El usuario ya existe");
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

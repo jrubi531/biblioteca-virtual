@@ -1,7 +1,6 @@
 package Persistencia;
 
 import Modulo.Usuario;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +12,18 @@ public class ArchivoUsuarios {
         this.archivo = archivo;
     }
 
-    // Guardar un usuario
+    // Guardar un usuario nuevo
     public boolean guardarUsuario(Usuario usuario) {
-        List<Usuario> usuarios = cargarUsuarios();
-        usuarios.add(usuario);
+        List<Usuario> usuarios = cargarUsuarios(); // cargar usuarios existentes
+        // Verificar si ya existe el usuario
+        if (buscarPorNombre(usuario.getUsername(), usuarios) != null) {
+            return false; // usuario ya existe
+        }
+
+        usuarios.add(usuario); // agregar nuevo usuario
+
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo))) {
-            oos.writeObject(usuarios);
+            oos.writeObject(usuarios); // sobrescribir archivo con la lista actualizada
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -27,23 +32,30 @@ public class ArchivoUsuarios {
     }
 
     // Cargar todos los usuarios
-    @SuppressWarnings("unchecked")
     public List<Usuario> cargarUsuarios() {
-        File file = new File(archivo);
-        if (!file.exists()) return new ArrayList<>();
+        File f = new File(archivo);
+        if (!f.exists()) {
+            return new ArrayList<>(); // archivo no existe → lista vacía
+        }
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
             return (List<Usuario>) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return new ArrayList<>();
+            return new ArrayList<>(); // error de lectura → lista vacía
         }
     }
 
-    // ✅ Método que faltaba: buscar usuario por nombre
+    // Buscar usuario por nombre
     public Usuario buscarPorNombre(String nombre) {
-        for (Usuario u : cargarUsuarios()) {
-            if (u.getNombre().equals(nombre)) {
+        List<Usuario> usuarios = cargarUsuarios();
+        return buscarPorNombre(nombre, usuarios);
+    }
+
+    // Método interno para búsqueda en lista dada
+    private Usuario buscarPorNombre(String nombre, List<Usuario> usuarios) {
+        for (Usuario u : usuarios) {
+            if (u.getUsername().equalsIgnoreCase(nombre)) {
                 return u;
             }
         }

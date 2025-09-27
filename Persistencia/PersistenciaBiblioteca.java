@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Biblioteca {
+public class PersistenciaBiblioteca {
     // Lista de libros
     private List<Libro> libros;
 
     // Constructor
-    public Biblioteca() {
+    public PersistenciaBiblioteca() {
         libros = new ArrayList<>();
     }
 

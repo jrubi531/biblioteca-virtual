@@ -1,46 +1,42 @@
 package Modulo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Usuario {
-    private String nombre;
-    private String password;
-    private List<Libro> favoritos;
-    private List<Libro> historial;
+public class Usuario implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    public Usuario(String nombre, String password) {
-        this.nombre = nombre;
-        this.password = password;
+    private String username;
+    private String contraseña;
+    private List<Libro> favoritos;   // libros favoritos
+    private List<Libro> historial;   // historial de libros
+
+    public Usuario(String username, String contraseña) {
+        this.username = username;
+        this.contraseña = contraseña;
         this.favoritos = new ArrayList<>();
         this.historial = new ArrayList<>();
     }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getContraseña() { return contraseña; }
+    public void setContraseña(String contraseña) { this.contraseña = contraseña; }
 
-    // Método para agregar un libro a favoritos
+    // Favoritos
+    public List<Libro> getFavoritos() { return favoritos; }
     public void agregarFavorito(Libro libro) {
-        favoritos.add(libro);
+        if (!favoritos.contains(libro)) {
+            favoritos.add(libro);
+        }
     }
+    public void eliminarFavorito(Libro libro) { favoritos.remove(libro); }
 
-    // Método para agregar un libro al historial
+    // Historial
+    public List<Libro> getHistorial() { return historial; }
     public void agregarHistorial(Libro libro) {
-        historial.add(libro);
-    }
-
-    // Opcional: obtener favoritos e historial
-    public List<Libro> getFavoritos() {
-        return favoritos;
-    }
-
-    public List<Libro> getHistorial() {
-        return historial;
+        historial.add(libro); // puedes agregar lógica para no duplicar si quieres
     }
 }
-

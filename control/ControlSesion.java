@@ -11,30 +11,24 @@ public class ControlSesion {
         this.archivoUsuarios = archivoUsuarios;
     }
 
-    // Verificar usuario para login
-    public boolean verificarUsuario(String nombre, String password) {
-        System.out.println("Buscando usuario: " + nombre);
+    // Verifica si el login es correcto
+    public boolean verificarUsuario(String nombre, String contrasena) {
         Usuario u = archivoUsuarios.buscarPorNombre(nombre);
-        if (u != null) {
-            System.out.println("Usuario encontrado: " + u.getNombre());
-            System.out.println("Password ingresada: " + password + " / Password real: " + u.getPassword());
-            if (u.getPassword().equals(password)) {
-                usuarioActivo = u;
-                return true;
-            }        
+        if (u != null && u.getContraseña().equals(contrasena)) {
+            usuarioActivo = u;
+            return true;
         }
         return false;
     }
 
-    // Obtener usuario activo
-    public Usuario getUsuarioActivo() { 
-        return usuarioActivo; 
+    // Registra un usuario nuevo
+    public boolean registrarUsuario(String nombre, String contrasena) {
+        Usuario nuevo = new Usuario(nombre, contrasena);
+        return archivoUsuarios.guardarUsuario(nuevo); // devuelve false si ya existía
     }
 
-    // Registrar un nuevo usuario
-    public boolean registrarUsuario(String nombre, String password) {
-        if (archivoUsuarios.buscarPorNombre(nombre) != null) return false;
-        Usuario u = new Usuario(nombre, password); 
-        return archivoUsuarios.guardarUsuario(u);
+    // Obtener usuario activo
+    public Usuario getUsuarioActivo() {
+        return usuarioActivo;
     }
 }
