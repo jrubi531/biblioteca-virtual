@@ -3,7 +3,7 @@ package Modulo;
 public class Libro {
     private String titulo;
     private String autor;
-    private String archivoPDF; // nuevo atributo
+    private String archivoPDF; 
 
     public Libro(String titulo, String autor, String archivoPDF) {
         this.titulo = titulo;

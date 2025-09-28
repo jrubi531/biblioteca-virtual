@@ -20,7 +20,6 @@ public class LoginDialog extends JDialog {
         setLocationRelativeTo(parent);
         setLayout(new BorderLayout());
 
-        // Campos de usuario y contraseña
         JPanel campos = new JPanel(new GridLayout(2,2,5,5));
         campos.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         campos.add(new JLabel("Usuario:"));
@@ -31,7 +30,6 @@ public class LoginDialog extends JDialog {
         campos.add(txtPassword);
         add(campos, BorderLayout.CENTER);
 
-        // Botones de login y registro
         btnLogin = new JButton("Iniciar Sesión");
         btnRegistrar = new JButton("Registrar Usuario");
 
@@ -47,8 +45,8 @@ public class LoginDialog extends JDialog {
 
             if(control.verificarUsuario(usuario, password)) {
                 dispose(); // cerrar login
-                // Abrir la VistaBiblioteca
-                SwingUtilities.invokeLater(() -> new VistaBiblioteca());
+                // Abrir la biblioteca con el mismo controlSesion
+                SwingUtilities.invokeLater(() -> new vista.VistaBiblioteca(control));
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
             }

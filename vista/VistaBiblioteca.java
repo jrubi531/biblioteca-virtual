@@ -7,6 +7,7 @@ import Modulo.Libro;
 import Persistencia.ArchivoUsuarios;
 import paneles.PanelRecomendados;
 import paneles.PanelBusqueda;
+import paneles.PanelInferior; // 👈 importa tu footer
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -15,6 +16,7 @@ public class VistaBiblioteca extends JFrame {
 
     private ControlBiblioteca controlBiblioteca;
 
+    // Constructor original
     public VistaBiblioteca() {
         super("Biblioteca Moderna");
         setSize(900, 600);
@@ -31,9 +33,11 @@ public class VistaBiblioteca extends JFrame {
         panel.setOpaque(true);
         panel.setBackground(new Color(30, 30, 30));
 
+        // Barra de búsqueda arriba
         PanelBusqueda panelBusqueda = new PanelBusqueda();
         panel.add(panelBusqueda, BorderLayout.NORTH);
 
+        // Libros recomendados en el centro con scroll
         PanelRecomendados panelRecomendados = new PanelRecomendados();
         JScrollPane scrollLibros = new JScrollPane(panelRecomendados);
         scrollLibros.setOpaque(false);
@@ -41,9 +45,14 @@ public class VistaBiblioteca extends JFrame {
         scrollLibros.setBorder(BorderFactory.createEmptyBorder());
         panel.add(scrollLibros, BorderLayout.CENTER);
 
+        // Footer con usuario, favoritos e historial 👇
+        PanelInferior panelInferior = new PanelInferior();
+        panel.add(panelInferior, BorderLayout.SOUTH);
+
         setContentPane(panel);
         setVisible(true);
 
+        // Eventos de búsqueda
         panelBusqueda.getBtnBuscar().addActionListener(e -> {
             String texto = panelBusqueda.getTxtBusqueda().getText().trim();
             if (!texto.isEmpty()) {
@@ -53,11 +62,16 @@ public class VistaBiblioteca extends JFrame {
             }
         });
 
-        // PASO CLAVE: pasar controlBiblioteca a ListaLibros
+        // Evento "ver todos"
         panelBusqueda.getBtnVerTodos().addActionListener(e -> {
             List<Libro> listaCompleta = controlBiblioteca.getBiblioteca().getLibros();
             new ListaLibros(listaCompleta, controlBiblioteca);
         });
+    }
+
+    // ✅ Constructor extra agregado para LoginDialog
+    public VistaBiblioteca(ControlSesion controlSesion) {
+        this(); // llama al constructor original
     }
 
     public static void main(String[] args) {

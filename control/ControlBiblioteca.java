@@ -32,11 +32,19 @@ public class ControlBiblioteca {
         return biblioteca; 
     }
 
+    public ControlSesion getControlSesion() {
+        return controlSesion;
+    }
+
     public void abrirPDF(Libro libro) {
         try {
             File pdf = new File("pdfs/" + libro.getArchivoPDF());
             if (pdf.exists()) {
                 Desktop.getDesktop().open(pdf);
+
+                // AGREGAR AL HISTORIAL
+                marcarHistorial(libro);
+
             } else {
                 System.out.println("El archivo PDF no existe: " + libro.getArchivoPDF());
             }

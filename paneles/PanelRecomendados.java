@@ -9,7 +9,7 @@ import java.io.File;
 public class PanelRecomendados extends JPanel {
     public PanelRecomendados() {
         setOpaque(false);
-        setLayout(new GridLayout(1, 3, 15, 0)); // 1 fila, 3 columnas, espacio horizontal
+        setLayout(new GridLayout(1, 3, 15, 0));
 
         // Imagen + PDF
         String[][] librosSugerencia = {

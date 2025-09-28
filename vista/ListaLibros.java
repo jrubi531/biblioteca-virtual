@@ -2,6 +2,7 @@ package vista;
 
 import Modulo.Libro;
 import control.ControlBiblioteca;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -50,7 +51,8 @@ public class ListaLibros extends JFrame {
                 if (evt.getClickCount() == 2) {
                     int index = listaLibros.locationToIndex(evt.getPoint());
                     if (index >= 0) {
-                        controlBiblioteca.abrirPDF(libros.get(index));
+                        Libro libro = libros.get(index);
+                        controlBiblioteca.abrirPDF(libro);
                     }
                 }
             }
