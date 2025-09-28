@@ -19,7 +19,7 @@ public class PanelInferior extends JPanel {
         btnFavoritos = crearBoton("Assets/corazon.png", "Favoritos");
         btnHistorial = crearBoton("Assets/Historial.png", "Historial");
 
-        // 🚀 Eventos de los botones
+        
         btnUsuario.addActionListener(e -> mostrarMensaje("👤 Sección Usuario\nPróximamente disponible."));
         btnFavoritos.addActionListener(e -> mostrarMensaje("❤️ Favoritos\nEn construcción..."));
         btnHistorial.addActionListener(e -> mostrarMensaje("📖 Historial\nUps, esta función no está lista."));
@@ -43,7 +43,7 @@ public class PanelInferior extends JPanel {
         boton.setBorderPainted(false);
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // 🌟 Efecto hover
+        
         boton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -75,7 +75,7 @@ public class PanelInferior extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // 🎨 Fondo degradado elegante
+        
         Graphics2D g2d = (Graphics2D) g;
         GradientPaint gp = new GradientPaint(
                 0, 0, new Color(15, 15, 15),
@@ -84,12 +84,12 @@ public class PanelInferior extends JPanel {
         g2d.setPaint(gp);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
-        // Sombra superior
+        
         g2d.setColor(new Color(0, 0, 0, 120));
         g2d.fillRect(0, 0, getWidth(), 5);
     }
 
-    // Getters para VistaBiblioteca
+    
     public JButton getBtnUsuario() { return btnUsuario; }
     public JButton getBtnFavoritos() { return btnFavoritos; }
     public JButton getBtnHistorial() { return btnHistorial; }
