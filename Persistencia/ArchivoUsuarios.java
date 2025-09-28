@@ -35,14 +35,14 @@ public class ArchivoUsuarios {
     public List<Usuario> cargarUsuarios() {
         File f = new File(archivo);
         if (!f.exists()) {
-            return new ArrayList<>(); // archivo no existe → lista vacía
+            return new ArrayList<>(); 
         }
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
             return (List<Usuario>) ois.readObject();
         } catch (Exception e) {
             e.printStackTrace();
-            return new ArrayList<>(); // error de lectura → lista vacía
+            return new ArrayList<>(); 
         }
     }
 

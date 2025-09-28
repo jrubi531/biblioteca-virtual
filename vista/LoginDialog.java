@@ -45,8 +45,7 @@ public class LoginDialog extends JDialog {
 
             if(control.verificarUsuario(usuario, password)) {
                 dispose(); // cerrar login
-                // Abrir la biblioteca con el mismo controlSesion
-                SwingUtilities.invokeLater(() -> new vista.VistaBiblioteca(control));
+                SwingUtilities.invokeLater(() -> new VistaBiblioteca(control));
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
             }
